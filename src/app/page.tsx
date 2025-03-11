@@ -1,5 +1,5 @@
-import { db } from './db';
-import { projectTable } from './db/schema';
+import { db } from '../db';
+import { projectTable } from '../db/schema';
 import { ProjectList } from './project-list';
 
 export default async function Home() {
