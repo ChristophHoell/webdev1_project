@@ -1,7 +1,4 @@
-import { db } from '@/db';
-import { projectTable } from '@/db/schema';
 import { NextRequest, NextResponse } from 'next/server';
-import { and, eq } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
 import { getMaybeUser } from '@/auth/utils';
 import { dbCreateProject, dbGetProjectById } from '@/db/functions/project';

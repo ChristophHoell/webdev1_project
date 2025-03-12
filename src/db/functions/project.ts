@@ -17,6 +17,15 @@ export async function dbGetProjectById({
   return maybeProject;
 }
 
+export async function dbGetProjects() {
+  const maybeProjects = (
+    await db.select().from(projectTable)
+  );
+
+  if (maybeProjects.length === 0) return undefined;
+  return maybeProjects;
+}
+
 export async function dbGetAssigneesByProjectId({
   projectId,
 }: {
@@ -38,6 +47,29 @@ export async function dbGetAssigneesByProjectId({
 
   if (maybeUsers === undefined) return undefined;
   return maybeUsers;
+}
+
+export async function dbGetProjectsByUserId({
+  userId,
+}: {
+  userId: string | undefined;
+}) {
+  if (userId === undefined) return undefined;
+
+  const maybeProjects = (
+    await db.select({
+      id: projectTable.id,
+      name: projectTable.name,
+      description: projectTable.description,
+      createdAt: projectTable.createdAt,
+    }).from(projectTable)
+      .innerJoin(userToProject, eq(projectTable.id, userToProject.projectId))
+      .innerJoin(userTable, eq(userToProject.userId, userTable.id))
+      .where(eq(userTable.id, userId))
+  );
+
+  if (maybeProjects === undefined) return undefined;
+  return maybeProjects;
 }
 
 export async function dbGetTasksByProjectId({

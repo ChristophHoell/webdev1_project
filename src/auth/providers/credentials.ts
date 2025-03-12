@@ -21,6 +21,7 @@ export const credentialsProvider = Credentials({
       return null;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { passwordHash, ...obscuredUser } = maybeUser;
     return { ...obscuredUser, type: "credentials" };
   }

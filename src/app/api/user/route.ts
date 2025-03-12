@@ -1,7 +1,4 @@
-import { db } from '@/db';
-import { userTable } from '@/db/schema';
 import { NextRequest, NextResponse } from 'next/server';
-import { eq } from 'drizzle-orm';
 import { dbCreateUser } from '@/db/functions/user';
 
 export async function POST(request: NextRequest) {

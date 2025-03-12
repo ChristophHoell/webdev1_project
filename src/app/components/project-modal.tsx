@@ -15,12 +15,13 @@ export function NewProjectModal({
   onSubmit,
 }: {
   onClose: () => void;
-  onSubmit: (name: string) => Promise<void>;
+  onSubmit: (name: string, description: string) => Promise<void>;
 }) {
   async function handleSubmit(event: React.FormEvent<ProjectFormElement>) {
     event.preventDefault();
     const name = event.currentTarget.elements.name.value.trim();
-    await onSubmit(name);
+    const description = event.currentTarget.elements.name.value.trim();
+    await onSubmit(name, description);
   }
 
   return (
@@ -42,6 +43,17 @@ export function NewProjectModal({
               type="text"
               id="name"
               name="name"
+              className="mt-1 block w-full px-3 py-2 border rounded focus:border-blue-500 focus:ring focus:ring-blue-200"
+            />
+          </div>
+          <div>
+            <label htmlFor="name" className="text-sm font-medium text-gray-600">
+              Description
+            </label>
+            <input
+              type="text"
+              id="description"
+              name="description"
               className="mt-1 block w-full px-3 py-2 border rounded focus:border-blue-500 focus:ring focus:ring-blue-200"
             />
           </div>

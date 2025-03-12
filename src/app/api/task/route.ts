@@ -1,7 +1,4 @@
-import { db } from '@/db';
-import { taskTable } from '@/db/schema';
 import { NextRequest, NextResponse } from 'next/server';
-import { eq } from 'drizzle-orm';
 import { dbCreateTask, dbGetTaskById } from '@/db/functions/task';
 import { getMaybeUser } from '@/auth/utils';
 import { redirect } from 'next/navigation';
@@ -27,16 +24,16 @@ export async function POST(request: NextRequest) {
     redirect("/login");
   }
   
-  const { title, description, status, projectId, creatorId, asigneeId } = await request.json();
+  const { title, description, status, projectId, asigneeId } = await request.json();
 
-  if (!title || !description || !projectId || !creatorId) {
+  if (!title || !description || !projectId ) {
     return NextResponse.json(
       { error: 'Task title, description, project ID and creator ID are required' },
       { status: 400 },
     );
   }
 
-  const response = await dbCreateTask({title, description, status, projectId, creatorId, asigneeId});
+  const response = await dbCreateTask({title, description, status, projectId, creatorId: maybeUser.id, asigneeId});
   if (response === undefined) return NextResponse.json({error: "Task could not be created"}, {status: 400});
   
   return NextResponse.json({ message: 'Task inserted successfully' }, { status: 200 });

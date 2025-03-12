@@ -1,5 +1,4 @@
 import { eq } from 'drizzle-orm';
-import { PgEnum, pgEnum } from 'drizzle-orm/pg-core';
 import { userTable } from "../schema";
 import db from "..";
 import hashString, { compareHashedString } from "@/utils/hash";
@@ -17,6 +16,7 @@ export async function dbGetUserById({
 
   if (maybeUser === undefined) return undefined;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { passwordHash, ...obscuredUser } = maybeUser;
   return obscuredUser;
 }

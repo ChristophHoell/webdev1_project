@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { dbAssignUserToProject, dbDeleteUserToProject, dbGetAssigneesByProjectId } from '@/db/functions/project';
 import { getMaybeUser } from '@/auth/utils';
 import { redirect } from 'next/navigation';
-import { dbGetAssigneesByTaskId } from '@/db/functions/task';
 
 export async function GET(request: NextRequest) {
   const maybeUser = await getMaybeUser();

@@ -1,9 +1,5 @@
-import { db } from '../db';
-import { projectTable } from '../db/schema';
-import { ProjectList } from './project-list';
+import { redirect } from 'next/navigation';
 
-export default async function Home() {
-  const projects = await db.select().from(projectTable);
-
-  return <ProjectList projects={projects} />;
+export default async function Page() {
+  redirect("/login");
 }

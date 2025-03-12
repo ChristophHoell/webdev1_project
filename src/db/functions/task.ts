@@ -34,6 +34,21 @@ export async function dbGetTasksByProjectId({
   return maybeTasks;
 }
 
+export async function dbGetTasksByUserId({
+  userId,
+}: {
+  userId: string | undefined;
+}) {
+  if (userId === undefined) return undefined;
+
+  const maybeTasks = (
+    await db.select().from(taskTable).where(eq(taskTable.asigneeId, userId))
+  );
+
+  if (maybeTasks.length === 0) return undefined;
+  return maybeTasks;
+}
+
 export async function dbGetAssigneesByTaskId({
   taskId,
 }: {

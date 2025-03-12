@@ -1,30 +1,33 @@
 'use client';
 
-import { NewProjectModal } from './project-modal';
+import { NewProjectModal } from '@/app/components/project-modal';
 
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { ProjectList } from '@/app/components/project-list';
 
-export function ProjectList({ projects }: { projects: { id: number, name: string }[] }) {
+export function ProjectsListAll({
+  projects,
+}: {
+  projects: { id: string, name: string, description: string, createdAt: Date }[]
+}) {
   const router = useRouter();
-
   const [showModal, setShowModal] = React.useState(false);
 
-  async function handleNewProject(name: string) {
+  async function handleNewProject(name: string, description: string) {
     const response = await fetch('/api/project', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({ name: name, description: description }),
     });
     console.log(response);
     if (!response.ok) {
       throw new Error('Failed to create project');
     }
     setShowModal(false);
-    router.refresh();
+    router.push("/projects");
   }
 
   return (
@@ -37,16 +40,10 @@ export function ProjectList({ projects }: { projects: { id: number, name: string
       </button>
 
       {
-        <div className="my-8 mx-auto max-w-2xl">
-          {projects.map((project) => (
-            <div key={project.id} className="flex items-center justify-between bg-white p-4 rounded shadow mb-4 hover:shadow transition">
-              <Link href={`/project/${project.id}`}>
-                <span className="text-lg font-semibold text-gray-800 hover:text-blue-500 transition">
-                  {project.name}
-                </span>
-              </Link>             
-            </div>
-          ))}
+        <div className="my-8 mx-auto w-full max-w-2xl">
+          {
+            <ProjectList projects={projects} />
+          }
         </div>
       }
 

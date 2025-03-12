@@ -1,0 +1,47 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+      {
+          "name": "server side",
+          "type": "node-terminal",
+          "request": "launch",
+          "command": "pnpm dev"
+      },
+      {
+          "name": "client side",
+          "type": "chrome",
+          "request": "launch",
+          "url": "http://127.0.0.1:3000",
+          "runtimeExecutable": "chrome"
+      },
+      {
+          "name": "full stack",
+          "type": "node",
+          "request": "launch",
+          "program": "${workspaceFolder}/node_modules/next/dist/bin/next",
+          "args": [
+              "dev"
+          ],
+          "runtimeArgs": [
+              "--inspect"
+          ],
+          "skipFiles": [
+              "<node_internals>/**"
+          ],
+          // "outFiles": [
+          //     "${workspaceFolder}/.next/**/*.js"
+          // ],
+          "sourceMapPathOverrides": {
+              "webpack:///./~/*": "${workspaceFolder}/node_modules/*",
+              "webpack:///./*": "${workspaceFolder}/*"
+          },
+          "serverReadyAction": {
+              "action": "debugWithChrome",
+              "killOnServerStop": true,
+              "pattern": "- Local:.+(http?://.+)",
+              "uriFormat": "%s",
+              "webRoot": "${workspaceFolder}"
+          }
+      }
+  ]
+}
