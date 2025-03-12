@@ -1,3 +1,4 @@
+"use server"
 import { redirect } from "next/navigation";;
 import { getMaybeUser } from "@/auth/utils"
 import Link from "next/link";

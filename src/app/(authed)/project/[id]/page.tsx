@@ -1,3 +1,4 @@
+"use server"
 import * as React from 'react';
 import { redirect } from 'next/navigation';
 import { dbGetAssigneesByProjectId, dbGetProjectById } from '@/db/functions/project';

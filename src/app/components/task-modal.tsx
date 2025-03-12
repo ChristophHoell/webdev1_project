@@ -93,12 +93,6 @@ export function NewTaskModal({
                 </option>
               ))}
             </select>
-
-            {selectedUser && (
-              <p className="mt-2 text-sm text-gray-600">
-                Assigned User: <strong>{assignees.find((u) => u.id === selectedUser)?.name}</strong>
-              </p>
-            )}
           </div>
 
           <button

@@ -1,3 +1,4 @@
+"use server"
 import { getMaybeUser } from '@/auth/utils';
 import { redirect } from 'next/navigation';
 import { SignInForm } from './_page';
